@@ -4,12 +4,22 @@
  */
 #include "main.h"
 
-int main()
+void waitfor(void){
+	int countx = 1000;
+	while(countx--);
+		
+}
+ 
+void main(void)
 {
-	int a = 0;
-	int b = 1;
-	int c = a + b;
-	a = c;
-	while (1);
-
+	PC_DDR = 0xff;
+	PC_CR1 = 0;
+	PC_CR2 = 0;
+	
+	for(;;){
+		PC_ODR = 0xff;
+		waitfor();
+		PC_ODR = 0x00;
+		waitfor();		
+		}
 }
