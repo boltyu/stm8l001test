@@ -1,0 +1,9 @@
+src\stm8l10x_gpio.c
+main.c
+stm8_interrupt_vector.c
+inc\stm8l10x_gpio.h
+inc\stm8l10x.h
+main.h
+d:\program files (x86)\stmicroelectronics\cosmic\fse_compilers\cxstm8\hstm8\mods0.h
+inc\stm8l10x_clk.h
+inc\stm8l10x_conf.h

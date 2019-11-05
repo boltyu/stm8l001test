@@ -14,7 +14,7 @@ Toolset=STM8 Cosmic
 
 [Config.0]
 ConfigName=Debug
-Target=stm8.elf
+Target=$(ProjectSFile).elf
 OutputFolder=Debug
 Debug=$(TargetFName)
 
@@ -54,7 +54,7 @@ Settings.1.7=Root.Config.1.Settings.7
 Settings.1.8=Root.Config.1.Settings.8
 
 [Root.Config.0.Settings.0]
-String.6.0=2019,11,4,10,26,22
+String.6.0=2019,11,5,17,45,19
 String.100.0=ST Assembler Linker
 String.100.1=ST7 Cosmic
 String.100.2=STM8 Cosmic
@@ -66,14 +66,15 @@ String.103.0=
 String.104.0=Hstm8
 String.105.0=Lib
 String.106.0=Debug
-String.107.0=stm8.elf
-Int.108=1
+String.107.0=$(ProjectSFile).elf
+Int.108=0
 
 [Root.Config.0.Settings.1]
-String.6.0=2019,11,3,12,45,31
+String.6.0=2019,11,5,14,52,34
 String.100.0=$(TargetFName)
 String.101.0=
-String.103.0=.\;
+String.102.0=
+String.103.0=.\;libraries\stm8l10x_stdperiph_driver\inc;libraries\stm8l10x_stdperiph_driver\src;inc;src;
 
 [Root.Config.0.Settings.2]
 String.2.0=
@@ -82,10 +83,10 @@ String.100.0=STM8L001J3
 
 [Root.Config.0.Settings.3]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 -customDbg -customDebCompat -customOpt-no -customLst -l +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 -iinc  +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2019,11,3,12,45,31
+String.6.0=2019,11,5,14,52,34
 
 [Root.Config.0.Settings.4]
 String.2.0=Assembling $(InputFile)...
@@ -101,24 +102,26 @@ String.8.0=
 
 [Root.Config.0.Settings.6]
 String.2.0=Running Linker
-String.3.0=clnk -customMapFile -customMapFile-m $(OutputPath)$(TargetSName).map -fakeRunConv  -fakeInteger  -fakeSemiAutoGen  $(ToolsetLibOpts)  -o $(OutputPath)$(TargetSName).sm8 -fakeOutFile$(ProjectSFile).elf -customCfgFile $(OutputPath)$(TargetSName).lkf -fakeVectFilestm8_interrupt_vector.c    -fakeStartupcrtsi0.sm8 
-String.3.1=cvdwarf $(OutputPath)$(TargetSName).sm8 -fakeVectAddr0x8000
+String.3.0=clnk $(ToolsetLibOpts) -o $(OutputPath)$(TargetSName).sm8 -fakeInteger -linc -fakeOutFile$(ProjectSFile).elf -fakeRunConv -fakeStartupcrtsi0.sm8 -fakeSemiAutoGen -fakeVectFilestm8_interrupt_vector.c -fakeVectAddr0x8000 -customMapFile -customMapFile-m$(OutputPath)$(TargetSName).map -customMapAddress -customCfgFile$(OutputPath)$(TargetSName).lkf 
+String.3.1=cvdwarf $(OutputPath)$(TargetSName).sm8
 String.4.0=$(OutputPath)$(TargetFName)
-String.5.0=$(OutputPath)$(TargetSName).map $(OutputPath)$(TargetSName).st7 $(OutputPath)$(TargetSName).s19
-String.6.0=2019,11,3,12,45,31
+String.5.0=$(OutputPath)$(ProjectSFile).elf $(OutputPath)$(TargetSName).map
+String.6.0=2019,11,5,17,45,19
+String.100.0=
 String.101.0=crtsi.st7
-String.102.0=+seg .const -b 0x8080 -m 0x1f80  -n .const -it 
-String.102.1=+seg .text -a .const  -n .text 
-String.102.2=+seg .bsct -b 0x0 -m 0x100  -n .bsct 
-String.102.3=+seg .ubsct -a .bsct  -n .ubsct 
-String.102.4=+seg .bit -a .ubsct  -n .bit -id 
-String.102.5=+seg .share -a .bit  -n .share -is 
-String.102.6=+seg .data -b 0x100 -m 0x2ff  -n .data 
-String.102.7=+seg .bss -a .data  -n .bss 
+String.102.0=+seg .const -b 0x8080 -m 0x1f80 -n .const -it
+String.102.1=+seg .text -a .const -n .text
+String.102.2=+seg .bsct -b 0x0 -m 0x100 -n .bsct
+String.102.3=+seg .ubsct -a .bsct -n .ubsct
+String.102.4=+seg .bit -a .ubsct -n .bit -id
+String.102.5=+seg .share -a .bit -n .share -is
+String.102.6=+seg .data -b 0x100 -m 0x2ff -n .data
+String.102.7=+seg .bss -a .data -n .bss
 String.103.0=Code,Constants[0x8080-0x9fff]=.const,.text
 String.103.1=Zero Page[0x0-0xff]=.bsct,.ubsct,.bit,.share
 String.103.2=Ram[0x100-0x3fe]=.data,.bss
 String.104.0=0x5ff
+String.105.0=libis0.sm8;libm0.sm8
 Int.0=0
 Int.1=0
 
@@ -139,7 +142,7 @@ String.100.2=STM8 Cosmic
 String.100.3=ST7 Metrowerks V1.1
 String.100.4=Raisonance
 String.101.0=STM8 Cosmic
-String.102.0=D:\Program Files (x86)\COSMIC\FSE_Compilers
+String.102.0=D:\Program Files (x86)\STMicroelectronics\COSMIC\FSE_Compilers\CXSTM8
 String.103.0=
 String.104.0=Hstm8
 String.105.0=Lib
@@ -151,7 +154,7 @@ Int.108=0
 String.6.0=2019,11,3,12,45,31
 String.100.0=$(TargetFName)
 String.101.0=
-String.103.0=.\;
+String.103.0=.\;inc;src;
 
 [Root.Config.1.Settings.2]
 String.2.0=
@@ -160,7 +163,7 @@ String.100.0=STM8L001J3
 
 [Root.Config.1.Settings.3]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 -iinc  +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2019,11,3,12,45,31
@@ -178,7 +181,7 @@ String.6.0=2019,11,3,12,45,31
 
 [Root.Config.1.Settings.6]
 String.2.0=Running Linker
-String.3.0=clnk -fakeRunConv  -fakeInteger  -fakeSemiAutoGen  $(ToolsetLibOpts)  -o $(OutputPath)$(TargetSName).sm8 -fakeOutFile$(ProjectSFile).elf -customCfgFile $(OutputPath)$(TargetSName).lkf -fakeVectFilestm8_interrupt_vector.c    -fakeStartupcrtsi0.sm8 
+String.3.0=clnk -fakeRunConv -fakeInteger -fakeSemiAutoGen $(ToolsetLibOpts) -o $(OutputPath)$(TargetSName).sm8 -fakeOutFile$(ProjectSFile).elf -customCfgFile $(OutputPath)$(TargetSName).lkf -fakeVectFilestm8_interrupt_vector.c -fakeStartupcrtsi0.sm8 
 String.3.1=cvdwarf $(OutputPath)$(TargetSName).sm8 -fakeVectAddr0x8000
 String.4.0=$(OutputPath)$(TargetFName)
 String.5.0=$(OutputPath)$(TargetSName).map $(OutputPath)$(TargetSName).st7 $(OutputPath)$(TargetSName).s19
@@ -211,7 +214,7 @@ String.6.0=2019,11,3,12,45,31
 [Root.Source Files]
 ElemType=Folder
 PathName=Source Files
-Child=Root.Source Files.main.c
+Child=Root.Source Files.src\stm8l10x_gpio.c
 Next=Root.Include Files
 Config.0=Root.Source Files.Config.0
 Config.1=Root.Source Files.Config.1
@@ -236,10 +239,10 @@ Int.1=0
 
 [Root.Source Files.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 -customDbg -customDebCompat -customOpt-no -customLst -l +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 -iinc  +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2019,11,3,12,45,31
+String.6.0=2019,11,5,14,52,34
 
 [Root.Source Files.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -263,7 +266,7 @@ Int.1=0
 
 [Root.Source Files.Config.1.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 -iinc  +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2019,11,3,12,45,31
@@ -282,6 +285,11 @@ String.4.0=
 String.5.0=
 String.6.0=2019,11,3,12,45,31
 
+[Root.Source Files.src\stm8l10x_gpio.c]
+ElemType=File
+PathName=src\stm8l10x_gpio.c
+Next=Root.Source Files.main.c
+
 [Root.Source Files.main.c]
 ElemType=File
 PathName=main.c
@@ -294,7 +302,7 @@ PathName=stm8_interrupt_vector.c
 [Root.Include Files]
 ElemType=Folder
 PathName=Include Files
-Child=Root.Include Files.main.h
+Child=Root.Include Files.inc\stm8l10x_gpio.h
 Config.0=Root.Include Files.Config.0
 Config.1=Root.Include Files.Config.1
 
@@ -318,10 +326,10 @@ Int.1=0
 
 [Root.Include Files.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 -customDbg -customDebCompat -customOpt-no -customLst -l +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 -iinc  +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2019,11,3,12,45,31
+String.6.0=2019,11,5,14,52,34
 
 [Root.Include Files.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -345,7 +353,7 @@ Int.1=0
 
 [Root.Include Files.Config.1.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 -iinc  +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2019,11,3,12,45,31
@@ -363,6 +371,16 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2019,11,3,12,45,31
+
+[Root.Include Files.inc\stm8l10x_gpio.h]
+ElemType=File
+PathName=inc\stm8l10x_gpio.h
+Next=Root.Include Files.inc\stm8l10x.h
+
+[Root.Include Files.inc\stm8l10x.h]
+ElemType=File
+PathName=inc\stm8l10x.h
+Next=Root.Include Files.main.h
 
 [Root.Include Files.main.h]
 ElemType=File
