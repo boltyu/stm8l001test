@@ -1,5 +1,5 @@
-# stm8test
-stm8测试，STVD+COSMIC
+# stm8l001j3测试
+stm8l001j3测试，STVD+COSMIC
 
 # 库
 STSW-8012  stm8l10x lib
